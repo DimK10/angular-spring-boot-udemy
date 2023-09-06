@@ -7,6 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProductService } from './services/product.service';
 import { NgOptimizedImage } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { ProductCategoryComponent } from './common/product-category/product-category.component';
+import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
 
 const routes: Routes = [
   {
@@ -20,7 +22,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ProductListComponent],
+  declarations: [
+    AppComponent,
+    ProductListComponent,
+    ProductCategoryComponent,
+    ProductCategoryMenuComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
