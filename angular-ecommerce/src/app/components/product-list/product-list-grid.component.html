@@ -40,8 +40,9 @@
               <div class="col-md-9" style="padding-left: 30%">
                 <ngb-pagination
                   [(page)]="thePageNumber"
-                  [collectionSize]="theTotalElements"
                   [pageSize]="thePageSize"
+                  (pageChange)="listProducts()"
+                  [collectionSize]="theTotalElements"
                 ></ngb-pagination>
               </div>
             </div>
