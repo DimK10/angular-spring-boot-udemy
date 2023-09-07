@@ -38,6 +38,10 @@ export class ProductService {
     return this.getProducts(searchUrl);
   }
 
+  getProduct(theProductId: number): Observable<Product> {
+    return null;
+  }
+
   private getProducts(searchUrl: string) {
     return this.httpClient
       .get<GetResponseProducts>(searchUrl)
