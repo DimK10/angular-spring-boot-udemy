@@ -21,7 +21,7 @@ export class CartService {
     if (this.cartItems.length > 0) {
       // find the item in the cart based on item id
       for (let tempCartItem of this.cartItems) {
-        if (tempCartItem.id === tempCartItem.id) {
+        if (tempCartItem.id === theCartItem.id) {
           existingCartItem = tempCartItem;
           break;
         }
@@ -60,7 +60,7 @@ export class CartService {
     this.logCartData(totalPriceValue, totalQuantityalue);
   }
 
-  private logCartData(totalPriceValue: number, totalQuantityalue: number) {
+  private logCartData(totalPriceValue: number, totalQuantityValue: number) {
     console.log('Contents of the cart');
     for (let tempCartItem of this.cartItems) {
       const subTotalPrice = tempCartItem.quantity * tempCartItem.unitPrice;
@@ -71,7 +71,7 @@ export class CartService {
       console.log(
         `totalPrice: ${totalPriceValue.toFixed(
           2,
-        )}, totalQuantity: ${totalQuantityalue}`,
+        )}, totalQuantity: ${totalQuantityValue}`,
       );
       console.log(`----`);
     }
