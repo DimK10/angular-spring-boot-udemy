@@ -43,5 +43,37 @@ export class CartService {
     this.computeCartTotals();
   }
 
-  private computeCartTotals() {}
+  private computeCartTotals() {
+    let totalPriceValue: number = 0;
+    let totalQuantityalue: number = 0;
+
+    for (let currentCartItem of this.cartItems) {
+      totalPriceValue += currentCartItem.quantity * currentCartItem.unitPrice;
+      totalQuantityalue += currentCartItem.quantity;
+    }
+
+    // publish the new values... all subscribers will receive the new data
+    this.totalPrice.next(totalPriceValue);
+    this.totalQuantity.next(totalQuantityalue);
+
+    // log cart data for debugging purposes
+    this.logCartData(totalPriceValue, totalQuantityalue);
+  }
+
+  private logCartData(totalPriceValue: number, totalQuantityalue: number) {
+    console.log('Contents of the cart');
+    for (let tempCartItem of this.cartItems) {
+      const subTotalPrice = tempCartItem.quantity * tempCartItem.unitPrice;
+      console.log(
+        `name: ${tempCartItem.name}, quantity=${tempCartItem.quantity}, unitPrice=${tempCartItem.unitPrice}, subTotalPrice=${subTotalPrice}`,
+      );
+
+      console.log(
+        `totalPrice: ${totalPriceValue.toFixed(
+          2,
+        )}, totalQuantity: ${totalQuantityalue}`,
+      );
+      console.log(`----`);
+    }
+  }
 }
