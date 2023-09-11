@@ -40,21 +40,21 @@ export class CartService {
     this.computeCartTotals();
   }
 
-  private computeCartTotals() {
+  computeCartTotals() {
     let totalPriceValue: number = 0;
-    let totalQuantityalue: number = 0;
+    let totalQuantityValue: number = 0;
 
     for (let currentCartItem of this.cartItems) {
       totalPriceValue += currentCartItem.quantity * currentCartItem.unitPrice;
-      totalQuantityalue += currentCartItem.quantity;
+      totalQuantityValue += currentCartItem.quantity;
     }
 
     // publish the new values... all subscribers will receive the new data
-    this.totalPrice.next(totalPriceValue);
-    this.totalQuantity.next(totalQuantityalue);
+    this.totalPrice.next(Number(totalPriceValue.toFixed(2)));
+    this.totalQuantity.next(totalQuantityValue);
 
     // log cart data for debugging purposes
-    this.logCartData(totalPriceValue, totalQuantityalue);
+    this.logCartData(totalPriceValue, totalQuantityValue);
   }
 
   private logCartData(totalPriceValue: number, totalQuantityValue: number) {
