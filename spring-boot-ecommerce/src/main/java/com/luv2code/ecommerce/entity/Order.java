@@ -1,5 +1,7 @@
 package com.luv2code.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -8,6 +10,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
@@ -38,5 +42,37 @@ public class Order {
     @Column(name = "last_updated")
     @UpdateTimestamp
     private Date lastUpdated;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
+    @JoinColumn(name = "order_id")
+    @JsonManagedReference
+    private Set<OrderItem> orderItems = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    @JsonBackReference
+    private Customer customer;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "shipping_address_id", referencedColumnName = "id")
+    @JsonManagedReference
+    private Address shippingAddress;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "billing_address_id", referencedColumnName = "id")
+    @JsonManagedReference
+    private Address billingAddress;
+
+    public void add(OrderItem item) {
+
+        if (item != null) {
+            if (orderItems == null) {
+                orderItems = new HashSet<>();
+            }
+
+            orderItems.add(item);
+            item.setOrder(this);
+        }
+    }
 
 }

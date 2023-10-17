@@ -1,5 +1,6 @@
 package com.luv2code.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,4 +24,8 @@ public class OrderItem {
 
     @Column(name = "product_id")
     private Long productId;
+
+    @ManyToOne
+    @JsonBackReference
+    private Order order;
 }
