@@ -6,12 +6,13 @@ import com.luv2code.ecommerce.dto.PurchaseResponse;
 import com.luv2code.ecommerce.entity.Customer;
 import com.luv2code.ecommerce.entity.Order;
 import com.luv2code.ecommerce.entity.OrderItem;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 import java.util.UUID;
 
-
+@Service
 public class CheckoutServiceImpl implements CheckoutService {
 
     private final CustomerRepository customerRepository;
