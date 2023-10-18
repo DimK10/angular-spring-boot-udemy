@@ -6,3 +6,4 @@ export default {
     scopes: ['openid', 'profile', 'email'],
   },
 };
+
