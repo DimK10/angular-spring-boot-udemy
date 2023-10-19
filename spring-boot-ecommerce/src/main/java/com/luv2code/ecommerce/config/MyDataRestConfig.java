@@ -3,6 +3,7 @@ package com.luv2code.ecommerce.config;
 import com.luv2code.ecommerce.entity.Product;
 import com.luv2code.ecommerce.entity.ProductCategory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -20,9 +21,12 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 
     private final EntityManager entityManager;
 
+    private final String[] allowedOrigins;
+
     @Autowired
-    public MyDataRestConfig(EntityManager entityManager) {
+    public MyDataRestConfig(EntityManager entityManager, @Value("${allowed.origins}") String[] allowedOrigins) {
         this.entityManager = entityManager;
+        this.allowedOrigins = allowedOrigins;
     }
 
     @Override
@@ -32,12 +36,15 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 
         // disable HTTP methods for Product: PUT, POST, DELETE and PATCH
         disableHttpMethods(Product.class, config, theUnsupportedActions);
-        
+
         // disable HTTP methods for ProductCategory: PUT, POST, DELETE and PATCH
         disableHttpMethods(ProductCategory.class, config, theUnsupportedActions);
 
         // call an internal helper method
         exposeIds(config);
+
+        // configure cors mapping
+        cors.addMapping(config.getBasePath() + "/**").allowedOrigins(allowedOrigins);
     }
 
     private static void disableHttpMethods(Class theClass, RepositoryRestConfiguration config, HttpMethod[] theUnsupportedActions) {
