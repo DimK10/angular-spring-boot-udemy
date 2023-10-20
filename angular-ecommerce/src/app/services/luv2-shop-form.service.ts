@@ -4,13 +4,14 @@ import { HttpClient } from "@angular/common/http";
 import { Country } from "../common/country";
 import { map } from "rxjs/operators";
 import { State } from "../common/state";
+import { environment } from "../../environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class Luv2ShopFormService {
-  private countriesUrl = "https://localhost:8443/api/countries";
-  private statesUrl = "https://localhost:8443/api/states";
+  private countriesUrl = environment.luv2shopApiUrl + "/countries";
+  private statesUrl = environment.luv2shopApiUrl + "/states";
 
   constructor(private httpClient: HttpClient) {}
 
