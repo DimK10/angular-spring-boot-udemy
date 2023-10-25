@@ -33,6 +33,8 @@ export class ProductService {
       `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}` +
       `&page=${thePage}&size=${thePageSize}`;
 
+    console.log(`Getting products from - ${searchUrl}`);
+
     return this.httpClient.get<GetResponseProducts>(searchUrl);
   }
 
@@ -40,6 +42,7 @@ export class ProductService {
     // need to build URL based on category id
     const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`;
 
+    console.log(`Getting products from - ${searchUrl}`);
     return this.getProducts(searchUrl);
   }
 
