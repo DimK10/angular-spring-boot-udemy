@@ -36,6 +36,7 @@ export class CheckoutComponent implements OnInit {
     storage: Storage = sessionStorage;
 
     // initialize Stripe API
+    // @ts-ignore
     stripe = Stripe(environment.stripePublishableKey);
 
     paymentInfo: PaymentInfo = new PaymentInfo();
@@ -322,7 +323,7 @@ export class CheckoutComponent implements OnInit {
         purchase.orderItems = orderItems;
 
         // compute payment info
-        this.paymentInfo.amount = this.totalPrice * 100;
+        this.paymentInfo.amount = Math.round(this.totalPrice * 100);
         this.paymentInfo.currency = "USD";
 
         // if valid form then
